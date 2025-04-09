@@ -1,21 +1,25 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ButtonLink } from './Button';
 import Image from 'next/image';
+import { useRef } from 'react';
 
 export default function CtaSection() {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
+    <section className="py-20 md:py-28 relative overflow-hidden" ref={sectionRef}>
       {/* Background decorative elements */}
       <motion.div 
         className="absolute -top-24 -right-24 w-64 h-64 bg-coral/10 rounded-full blur-3xl"
         initial={{ opacity: 0 }}
-        animate={{ 
+        animate={isInView ? { 
           opacity: [0.4, 0.6, 0.4], 
           scale: [1, 1.1, 1],
           rotate: [0, 5, 0]
-        }}
+        } : { opacity: 0 }}
         transition={{ 
           duration: 8, 
           repeat: Infinity,
@@ -25,11 +29,11 @@ export default function CtaSection() {
       <motion.div 
         className="absolute -bottom-32 -left-32 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl"
         initial={{ opacity: 0 }}
-        animate={{ 
+        animate={isInView ? { 
           opacity: [0.3, 0.5, 0.3], 
           scale: [1, 1.2, 1],
           rotate: [0, -5, 0]
-        }}
+        } : { opacity: 0 }}
         transition={{ 
           duration: 10, 
           repeat: Infinity,
@@ -43,13 +47,13 @@ export default function CtaSection() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.7 }}
             >
               <motion.h2 
                 className="heading-font text-3xl md:text-4xl mb-6"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 Pojďme společně vytvořit
@@ -59,7 +63,7 @@ export default function CtaSection() {
               <motion.p 
                 className="text-gray-600 mb-8"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 Každý okamžik si zaslouží být zachycen. Kontaktujte mě a naplánujme 
@@ -68,7 +72,7 @@ export default function CtaSection() {
               
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <ButtonLink 
@@ -83,7 +87,7 @@ export default function CtaSection() {
             <motion.div
               className="relative flex justify-center items-center"
               initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               transition={{ 
                 duration: 0.7, 
                 delay: 0.3,
@@ -96,7 +100,7 @@ export default function CtaSection() {
                   <motion.div 
                     className="w-[85%] h-[85%] rounded-full border-2 border-gray-200"
                     initial={{ opacity: 0, scale: 0.5, rotate: -90 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.5, rotate: -90 }}
                     transition={{ duration: 1, delay: 0.5 }}
                   />
                 </div>
@@ -104,7 +108,7 @@ export default function CtaSection() {
                 <motion.div 
                   className="absolute inset-0"
                   initial={{ opacity: 0, rotate: 45 }}
-                  animate={{ opacity: 1, rotate: 0 }}
+                  animate={isInView ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: 45 }}
                   transition={{ duration: 1.2, delay: 0.7 }}
                 >
                   <svg viewBox="0 0 200 200" className="w-full h-full">
@@ -121,7 +125,7 @@ export default function CtaSection() {
                 <motion.div 
                   className="absolute inset-0"
                   initial={{ opacity: 0, rotate: -45 }}
-                  animate={{ opacity: 1, rotate: 0 }}
+                  animate={isInView ? { opacity: 1, rotate: 0 } : { opacity: 0, rotate: -45 }}
                   transition={{ duration: 1.2, delay: 0.9 }}
                 >
                   <svg viewBox="0 0 200 200" className="w-full h-full">
@@ -138,8 +142,26 @@ export default function CtaSection() {
                 <motion.div
                   className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.1 }}
+                  animate={isInView ? { 
+                    opacity: 1, 
+                    y: 0,
+                    scale: [1, 1.05, 1],
+                    rotate: [0, -5, 5, 0]
+                  } : { opacity: 0, y: 20 }}
+                  transition={{ 
+                    duration: 1.5,
+                    delay: 1.1,
+                    scale: {
+                      repeat: Infinity,
+                      duration: 4,
+                      ease: "easeInOut"
+                    },
+                    rotate: {
+                      repeat: Infinity,
+                      duration: 6,
+                      ease: "easeInOut"
+                    }
+                  }}
                 >
                   <div className="relative w-full h-full">
                     <Image

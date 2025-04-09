@@ -20,7 +20,7 @@ type CategoriesProps = {
 
 export default function Categories({ categories }: CategoriesProps) {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: false, amount: 0.2 });
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const containerVariants = {
@@ -68,32 +68,32 @@ export default function Categories({ categories }: CategoriesProps) {
         className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-teal-400/10 blur-3xl"
         initial={{ opacity: 0 }}
         animate={{
-          opacity: 0.8,
-          scale: [1, 1.1, 1],
-          x: [0, 20, 0],
-          y: [0, -20, 0],
+          opacity: isInView ? 0.8 : 0,
+          scale: isInView ? [1, 1.1, 1] : 1,
+          x: isInView ? [0, 20, 0] : 0,
+          y: isInView ? [0, -20, 0] : 0,
         }}
         transition={{
           opacity: { duration: 1.5, delay: 0.2 },
-          scale: { repeat: Infinity, duration: 20, ease: "easeInOut" },
-          x: { repeat: Infinity, duration: 25, ease: "easeInOut" },
-          y: { repeat: Infinity, duration: 18, ease: "easeInOut" },
+          scale: { duration: 20, ease: "easeInOut", repeat: Infinity },
+          x: { duration: 25, ease: "easeInOut", repeat: Infinity },
+          y: { duration: 18, ease: "easeInOut", repeat: Infinity },
         }}
       />
       <motion.div
         className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full bg-coral/10 blur-3xl"
         initial={{ opacity: 0 }}
         animate={{
-          opacity: 0.8,
-          scale: [1, 1.2, 1],
-          x: [0, -20, 0],
-          y: [0, 20, 0],
+          opacity: isInView ? 0.8 : 0,
+          scale: isInView ? [1, 1.2, 1] : 1,
+          x: isInView ? [0, -20, 0] : 0,
+          y: isInView ? [0, 20, 0] : 0,
         }}
         transition={{
           opacity: { duration: 1.5, delay: 0.4 },
-          scale: { repeat: Infinity, duration: 15, ease: "easeInOut" },
-          x: { repeat: Infinity, duration: 20, ease: "easeInOut" },
-          y: { repeat: Infinity, duration: 22, ease: "easeInOut" },
+          scale: { duration: 15, ease: "easeInOut", repeat: Infinity },
+          x: { duration: 20, ease: "easeInOut", repeat: Infinity },
+          y: { duration: 22, ease: "easeInOut", repeat: Infinity },
         }}
       />
 
