@@ -1,26 +1,460 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #111827; /* Near black for text */
+  --accent: #4b5563; /* Subtle gray for accents */
+  --secondary: #9ca3af; /* Lighter gray for secondary elements */
+  --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-*: initial;
+  --color-burgundy: #5f021f;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primary);
+  background: #fff;
+  font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv03" on;
+  overflow-x: hidden;
+  font-family: var(--font-inter);
+}
+
+/* Apply Outfit to headings with more playful styles */
+h1,
+h2,
+h3,
+.heading-font {
+  font-family: var(--font-outfit);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Larger font sizes for headings */
+h1 {
+  font-size: 4.5rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+/* Playful underline effect */
+.heading-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.heading-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  width: 100%;
+  height: 0.12em;
+  background: currentColor;
+  opacity: 0.15;
+  border-radius: 0.1em;
+}
+
+/* Fun heading emphasis */
+.heading-emphasis {
+  display: inline-block;
+  transform: rotate(-1deg);
+  padding: 0.1em 0.2em;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 0.2em;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Modern styling utilities */
+.hover-lift {
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.text-gradient {
+  color: var(--primary);
+}
+
+.image-hover {
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .image-hover:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Smooth transitions */
+.smooth-transition {
+  transition: all 0.3s ease;
+}
+
+/* Modern button styles */
+.btn-modern,
+.btn-primary,
+.btn-secondary,
+.btn-outlined {
+  padding: 0.8rem 1.8rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-size: 0.95rem;
+  min-height: 3rem;
+  min-width: 8rem;
+}
+
+.btn-primary {
+  background: #5f021f; /* Burgundy color */
+  color: white;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-secondary {
+  background: white;
+  color: #5f021f; /* Burgundy color */
+  border: 2px solid #5f021f;
+  font-weight: 500;
+}
+
+.btn-outlined {
+  background: transparent;
+  color: #111827; /* Near black for text */
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-modern::before,
+.btn-primary::before,
+.btn-secondary::before,
+.btn-outlined::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-out;
+  z-index: -1;
+}
+
+.btn-modern:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-outlined:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  background: #4a0219; /* Darker burgundy */
+}
+
+.btn-secondary:hover {
+  background: rgba(95, 2, 31, 0.05); /* Light burgundy background */
+}
+
+.btn-outlined:hover {
+  border-color: #9ca3af;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.btn-modern:hover::before,
+.btn-primary:hover::before,
+.btn-secondary:hover::before,
+.btn-outlined:hover::before {
+  transform: translateX(0);
+}
+
+/* Active/pressed button states */
+.btn-primary:active, 
+.btn-secondary:active, 
+.btn-outlined:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern input styles */
+.input-modern {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #e5e7eb;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.input-modern:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  outline: none;
+}
+
+/* Section spacing */
+.section-spacing {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+/* Container styles */
+.container-modern {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-modern {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-modern {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Card hover effect - only on desktop */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Category card specific styles */
+.category-card {
+  position: relative;
+  margin-bottom: 1.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.category-card-content {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+/* Desktop hover effects */
+@media (min-width: 768px) {
+  .card-hover:hover {
+    border-color: var(--accent);
+  }
+
+  .category-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+    border: none;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover .category-card-content {
+    transform: translateY(0);
+  }
+}
+
+/* Mobile styles - always visible content */
+@media (max-width: 767px) {
+  .category-card-content {
+    position: relative;
+    background: rgba(255, 255, 255, 0.95);
+    transform: none !important;
+  }
+}
+
+/* Subtle floating animation for decorative elements */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Subtle background animation */
+.subtle-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.subtle-animate::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transform: skewX(-25deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 150%;
+  }
+}
+
+/* Hero section styles */
+.hero-section {
+  position: relative;
+  min-height: 90vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Wave animation for emoji */
+@keyframes wave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-wave {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out infinite;
+  transform-origin: 70% 70%;
+}
+
+/* Underline animation */
+@keyframes underline-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+h1 span.relative span {
+  transform: scaleX(0);
+  animation: underline-grow 1.2s ease-out forwards;
+  transform-origin: left;
+  animation-delay: 0.5s;
+}
+
+/* Scroll dot animation */
+@keyframes scrollDot {
+  0%,
+  20% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  60%,
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+.animate-scroll-dot {
+  animation: scrollDot 1.5s ease-in-out infinite;
+}
+
+/* Card Stack Effect for Carousel */
+.perspective-1000 {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* Card hover effect for stack animation */
+.card-stack {
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.card-stack:hover {
+  transform: translateY(-5px) rotate(2deg);
+}
+
+/* Card frame styling */
+.card-frame {
+  border: 8px solid white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
