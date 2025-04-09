@@ -9,7 +9,6 @@
 }
 
 @theme {
-  --color-*: initial;
   --color-burgundy: #5f021f;
 }
 
@@ -457,4 +456,78 @@ h1 span.relative span {
   border: 8px solid white;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 0;
+  background-color: #5f021f;
+  border-radius: 0 4px 4px 0;
+  transition: height 0.3s ease;
+}
+
+.mobile-menu-item:hover::before {
+  height: 100%;
+}
+
+.mobile-menu-active::before {
+  height: 100%;
+}
+
+.mobile-menu-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Mobile menu link hover effect */
+@keyframes mobile-menu-shine {
+  from {
+    transform: translateX(-100%) skewX(-30deg);
+  }
+  to {
+    transform: translateX(250%) skewX(-30deg);
+  }
+}
+
+.mobile-menu-item:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: mobile-menu-shine 1.5s infinite;
+  pointer-events: none;
+}
+
+/* Mobile menu indicator dot animation */
+@keyframes pulse-mobile-dot {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+.mobile-menu-indicator {
+  animation: pulse-mobile-dot 2s infinite;
 }

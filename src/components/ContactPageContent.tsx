@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Button, ArrowIcon } from './Button';
 
 export default function ContactPageContent() {
   // Use predefined positions instead of random ones
@@ -138,35 +139,14 @@ export default function ContactPageContent() {
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <motion.button
+                  <Button
+                    variant="primary"
                     type="submit"
-                    className="btn-primary w-full flex items-center justify-center"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.97 }}
+                    fullWidth={true}
                   >
                     <span>Odeslat zprávu</span>
-                    <motion.svg
-                      className="ml-2 w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ 
-                        duration: 1.5, 
-                        repeat: Infinity, 
-                        repeatType: "loop" as const,
-                        repeatDelay: 1.5,
-                        ease: "easeInOut" 
-                      }}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </motion.svg>
-                  </motion.button>
+                    <ArrowIcon />
+                  </Button>
                 </motion.div>
               </motion.form>
               

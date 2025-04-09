@@ -176,9 +176,9 @@ export default function VerticalCarousel() {
           </div>
         </AnimatePresence>
       </div>
-      
+
       {/* Carousel dots */}
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1.5 pb-2">
+      {/* <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-1.5 pb-2">
         {images.map((_, index) => (
           <motion.div
             key={`dot-${index}`}
@@ -191,7 +191,7 @@ export default function VerticalCarousel() {
             transition={{ duration: 0.3 }}
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

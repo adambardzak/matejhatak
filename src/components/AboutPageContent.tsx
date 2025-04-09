@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { ButtonLink, ArrowIcon } from './Button';
 
 export default function AboutPageContent() {
   // Animation variants
@@ -132,38 +132,10 @@ export default function AboutPageContent() {
                 className="pt-4"
                 variants={itemVariants}
               >
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Link
-                    href="/kontakt"
-                    className="btn-primary inline-flex items-center"
-                  >
-                    <span>Kontaktujte mě</span>
-                    <motion.svg
-                      className="ml-2 w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ 
-                        duration: 1.5, 
-                        repeat: Infinity, 
-                        repeatType: "loop" as const,
-                        repeatDelay: 1.5,
-                        ease: "easeInOut" 
-                      }}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </motion.svg>
-                  </Link>
-                </motion.div>
+                <ButtonLink href="/kontakt" variant="primary">
+                  <span>Kontaktujte mě</span>
+                  <ArrowIcon />
+                </ButtonLink>
               </motion.div>
             </motion.div>
           </motion.div>
