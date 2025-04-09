@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -7,12 +7,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+interface RouteContext {
+  params: {
+    category: string;
+  };
+}
+
 export async function GET(
-  request: Request,
-  { params }: { params: { category: string } }
+  request: NextRequest,
+  context: RouteContext
 ) {
   try {
-    const { category } = params;
+    const { category } = context.params;
     
     const result = await cloudinary.search
       .expression(`folder:gallery/${category}/*`)
@@ -20,7 +26,7 @@ export async function GET(
       .max_results(100)
       .execute();
 
-    const images = result.resources.map(resource => ({
+    const images = result.resources.map((resource: any) => ({
       public_id: resource.public_id,
       url: resource.secure_url
     }));
