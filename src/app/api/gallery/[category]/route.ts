@@ -13,6 +13,17 @@ interface RouteContext {
   };
 }
 
+interface CloudinaryResource {
+  public_id: string;
+  secure_url: string;
+  resource_type: string;
+  created_at: string;
+  format: string;
+  bytes: number;
+  width: number;
+  height: number;
+}
+
 export async function GET(
   request: NextRequest,
   context: RouteContext
@@ -26,7 +37,7 @@ export async function GET(
       .max_results(100)
       .execute();
 
-    const images = result.resources.map((resource: any) => ({
+    const images = result.resources.map((resource: CloudinaryResource) => ({
       public_id: resource.public_id,
       url: resource.secure_url
     }));
