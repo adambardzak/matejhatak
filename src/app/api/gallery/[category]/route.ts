@@ -1,5 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
-import { NextRequest, NextResponse } from 'next/server';
+import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -19,29 +18,26 @@ interface CloudinaryResource {
 }
 
 export async function GET(
-  _request: NextRequest,
-  context: { params: { category: string } }
+  request: Request,
+  { params }: { params: Promise<{ category: string }> }
 ) {
   try {
-    const category = context.params.category;
-    
+    const category = (await params).category;
+
     const result = await cloudinary.search
       .expression(`folder:gallery/${category}/*`)
-      .sort_by('created_at', 'desc')
+      .sort_by("created_at", "desc")
       .max_results(100)
       .execute();
 
     const images = result.resources.map((resource: CloudinaryResource) => ({
       public_id: resource.public_id,
-      url: resource.secure_url
+      url: resource.secure_url,
     }));
 
-    return NextResponse.json({ images });
+    return Response.json({ images });
   } catch (error) {
-    console.error('Gallery fetch error:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch gallery' },
-      { status: 500 }
-    );
+    console.error("Gallery fetch error:", error);
+    return Response.json({ error: "Failed to fetch gallery" }, { status: 500 });
   }
-} 
+}
