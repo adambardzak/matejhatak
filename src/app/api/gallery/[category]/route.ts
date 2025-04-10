@@ -19,11 +19,11 @@ interface CloudinaryResource {
 }
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { category: string } }
+  _request: NextRequest,
+  context: { params: { category: string } }
 ) {
   try {
-    const { category } = params;
+    const category = context.params.category;
     
     const result = await cloudinary.search
       .expression(`folder:gallery/${category}/*`)
