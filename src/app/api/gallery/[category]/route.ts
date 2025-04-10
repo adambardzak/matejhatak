@@ -18,15 +18,9 @@ interface CloudinaryResource {
   height: number;
 }
 
-type RouteProps = {
-  params: {
-    category: string;
-  };
-};
-
 export async function GET(
   request: NextRequest,
-  { params }: RouteProps
+  { params }: { params: { category: string } }
 ) {
   try {
     const { category } = params;
