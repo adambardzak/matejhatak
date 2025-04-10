@@ -1,11 +1,11 @@
 import CategoryGallery from "@/components/CategoryGallery";
 
 type Props = {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 };
 
 export default async function GalleryPage(props: Props) {
-  const { params } = props;
+  const params = await props.params;
 
   const categoryTitles: Record<string, string> = {
     rodinne: "Rodinné",
