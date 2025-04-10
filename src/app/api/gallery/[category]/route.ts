@@ -7,12 +7,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-interface RouteContext {
-  params: {
-    category: string;
-  };
-}
-
 interface CloudinaryResource {
   public_id: string;
   secure_url: string;
@@ -24,12 +18,18 @@ interface CloudinaryResource {
   height: number;
 }
 
+type RouteProps = {
+  params: {
+    category: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  context: RouteContext
+  { params }: RouteProps
 ) {
   try {
-    const { category } = context.params;
+    const { category } = params;
     
     const result = await cloudinary.search
       .expression(`folder:gallery/${category}/*`)
